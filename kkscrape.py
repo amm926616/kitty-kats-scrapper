@@ -27,7 +27,7 @@ headers = {
 
 # Folder to save the downloaded images
 folder_name = input("The folder name: ")
-save_folder = "~/Pictures/.metart/" + folder_name
+save_folder = "/home/adam178/Pictures/.metart/" + folder_name
 
 # Create the folder if it doesn't exist
 if not os.path.exists(save_folder):
@@ -78,17 +78,24 @@ for container in image_containers:
                 high_res_images.append(high_res_url)
                 print(f"Found high-resolution image: {high_res_url}")
 
+                # Extract the image filename from the URL
+                img_name = os.path.basename(high_res_url)
+
+                # Path to save the image
+                img_path = os.path.join(save_folder, img_name)
+
+                # Check if the image already exists
+                if os.path.exists(img_path):
+                    print(f"Image already exists: {img_path}")
+                    continue
+
                 # Download the image
                 img_start_time = time.time()
                 img_response = requests.get(high_res_url, headers=headers, timeout=10)
                 img_response.raise_for_status()
                 img_end_time = time.time()
 
-                # Extract the image filename from the URL
-                img_name = os.path.basename(high_res_url)
-
                 # Save the image to the specified folder
-                img_path = os.path.join(save_folder, img_name)
                 with open(img_path, 'wb') as img_file:
                     img_file.write(img_response.content)
 
@@ -120,3 +127,5 @@ for img_url in high_res_images:
 # Calculate and display total time taken
 total_time = time.time() - start_time
 print(f"Total time taken: {math.floor(total_time // 60)} minutes, {int(total_time % 60)} seconds")
+
+exit() # Close the terminal
