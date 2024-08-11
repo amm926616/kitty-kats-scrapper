@@ -9,7 +9,7 @@ from termcolor import colored
 import math
 
 # Create ASCII art
-ascii_art = pyfiglet.figlet_format("Kitty-Kats Scrapper", font="slant")
+ascii_art = pyfiglet.figlet_format("kitty-kats Scrapper", font="slant")
 
 # Add color to the ASCII art
 colored_ascii_art = colored(ascii_art, color="cyan")
