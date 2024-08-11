@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
 import os
 import requests
@@ -10,24 +10,40 @@ import math
 
 # Create ASCII art
 ascii_art = pyfiglet.figlet_format("kitty-kats Scrapper", font="slant")
-
-# Add color to the ASCII art
 colored_ascii_art = colored(ascii_art, color="cyan")
-
-# Print the colored ASCII art
 print(colored_ascii_art)
 
 # Main URL of the page to scrape
 url = input("url: ")
+
+
+# File to store downloaded URLs
+downloaded_url_file = '/home/adam178/Pictures/.metart/downloaded_url.txt'
+
+# Check if the URL has already been processed
+if not os.path.exists(downloaded_url_file):
+    open(downloaded_url_file, 'a').close()
+
+with open(downloaded_url_file, 'r') as f:
+    downloaded_urls = f.read().splitlines()
+    f.close()
+
+if url in downloaded_urls:
+    print(f"URL '{url}' has already been processed. Exiting.")
+    exit()
+
+else:
+    open(downloaded_url_file, 'a').write(url + '\n')
+
 
 # Headers to mimic a real browser request
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
-# Folder to save the downloaded images
-folder_name = input("The folder name: ")
-save_folder = "/home/adam178/Pictures/.metart/" + folder_name
+# Extract folder name from the last segment of the URL
+folder_name = url.rstrip('/').split('/')[-1]
+save_folder = os.path.join("/home/adam178/Pictures/.metart/", folder_name)
 
 # Create the folder if it doesn't exist
 if not os.path.exists(save_folder):
@@ -78,37 +94,32 @@ for container in image_containers:
                 high_res_images.append(high_res_url)
                 print(f"Found high-resolution image: {high_res_url}")
 
-                # Extract the image filename from the URL
+                # Download the image if it doesn't already exist
                 img_name = os.path.basename(high_res_url)
-
-                # Path to save the image
                 img_path = os.path.join(save_folder, img_name)
 
-                # Check if the image already exists
-                if os.path.exists(img_path):
+                if not os.path.exists(img_path):
+                    img_start_time = time.time()
+                    img_response = requests.get(high_res_url, headers=headers, timeout=10)
+                    img_response.raise_for_status()
+                    img_end_time = time.time()
+
+                    with open(img_path, 'wb') as img_file:
+                        img_file.write(img_response.content)
+
+                    print(f"Image saved: {img_path}")
+
+                    # Calculate and display ETA
+                    elapsed_time = img_end_time - img_start_time
+                    images_remaining = len(image_links) - len(high_res_images)
+                    eta_seconds = images_remaining * elapsed_time
+                    eta_minutes = eta_seconds // 60
+                    eta_seconds = eta_seconds % 60
+
+                    print(f"ETA: {int(eta_minutes)} minutes, {int(eta_seconds)} seconds remaining")
+
+                else:
                     print(f"Image already exists: {img_path}")
-                    continue
-
-                # Download the image
-                img_start_time = time.time()
-                img_response = requests.get(high_res_url, headers=headers, timeout=10)
-                img_response.raise_for_status()
-                img_end_time = time.time()
-
-                # Save the image to the specified folder
-                with open(img_path, 'wb') as img_file:
-                    img_file.write(img_response.content)
-
-                print(f"Image saved: {img_path}")
-
-                # Calculate and display ETA
-                elapsed_time = img_end_time - img_start_time
-                images_remaining = len(image_links) - (len(high_res_images))
-                eta_seconds = images_remaining * elapsed_time
-                eta_minutes = eta_seconds // 60
-                eta_seconds = eta_seconds % 60
-
-                print(f"ETA: {int(eta_minutes)} minutes, {int(eta_seconds)} seconds remaining")
 
             else:
                 print("High-resolution image link not found.")
@@ -124,8 +135,10 @@ print("All high-resolution images downloaded:")
 for img_url in high_res_images:
     print(img_url)
 
+# Save the current URL to the downloaded URLs file
+with open(downloaded_url_file, 'a') as f:
+    f.write(url + '\n')
+
 # Calculate and display total time taken
 total_time = time.time() - start_time
 print(f"Total time taken: {math.floor(total_time // 60)} minutes, {int(total_time % 60)} seconds")
-
-exit() # Close the terminal
