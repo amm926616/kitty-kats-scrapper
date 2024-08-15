@@ -6,3 +6,4 @@ I got sick of download speed limit on keep2share when I try to pirate MetArt Alb
 
 #### Mika B (One of the lost gorgeous from MetArt)
 ![Mika B album profile](resources/MetArt_Presenting-Mika_Mika-B_high_0001.jpg)
+She is the reason I started this project since I can't satisfy with preview images from pornpics. Although she is kinda like one hit wonder, only on mika b photoshoot in MetArt. I wish she is doing well. 
