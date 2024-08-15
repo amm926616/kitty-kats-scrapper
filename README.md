@@ -1,6 +1,6 @@
 # kitty-kats scrapper
 
-I got sick of download speed limit on keep2share when I try to pirate MetArt Album from kitty-kats website. This python script scrape hd image one by one from redirected "imagetwist.com". The download folder is in "~/Pictures/.metart/". 
+I got sick of download speed limit on keep2share when I try to pirate MetArt Album from kitty-kats website. This python script scrape hd image one by one from redirected hosted sites of "imagetwist.com", "imgspice.com" and "turbofile". The download folder is in "~/Pictures/.metart/". 
 
 ![screenshot](resources/screenshot.png)
 
