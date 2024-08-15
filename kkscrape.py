@@ -24,7 +24,7 @@ url = pyperclip.paste()
 print("URL: ", url)
 
 # File to store downloaded URLs
-downloaded_url_file = '/run/media/adam178/6abf3584-a2fd-495a-bdc1-b9f4dfee84e3/.metart/downloaded_url.txt'
+downloaded_url_file = '/home/adam178/.config/metart/downloaded_url.txt'
 
 # Check if the URL has already been processed
 if not os.path.exists(downloaded_url_file):
@@ -99,6 +99,7 @@ for container in image_containers:
                 # Get the hostname of the redirected URL to determine how to handle it
                 parsed_url = urlparse(redirect_url)
                 hostname = parsed_url.hostname
+                high_res_url = ""
 
                 if "imagetwist.com" in hostname:
                     # Handle imagetwist.com
@@ -121,6 +122,11 @@ for container in image_containers:
                 else:
                     print(f"Unhandled hostname: {hostname}")
                     success = True
+                    break
+
+
+                if (high_res_url == ""):
+                    print("Skipping this link. Probably dead image")
                     break
 
                 # Skip downloading if the image already exists
@@ -153,10 +159,6 @@ for container in image_containers:
                 eta_seconds = eta_seconds % 60
 
                 print(f"ETA: {int(eta_minutes)} minutes, {int(eta_seconds)} seconds remaining")
-
-                if count == len(image_links):
-                    open(f"{save_folder}/.download_all_finished", "w").close()
-
                 success = True
 
             except requests.exceptions.RequestException as e:
@@ -169,6 +171,7 @@ for container in image_containers:
                     success = True  # Proceed to the next image after retries
 
 # Display all the high-resolution image URLs collected
+open(f"{save_folder}/.download_all_finished", "w").close()
 print("All high-resolution images downloaded:")
 for img_url in high_res_images:
     print(img_url)
