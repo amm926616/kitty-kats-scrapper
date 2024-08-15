@@ -1,11 +1,10 @@
-# kitty-kats scrapper
-
-I got sick of download speed limit on keep2share when I try to pirate MetArt Album from kitty-kats website. This python script scrape hd image one by one from redirected hosted sites of "imagetwist.com", "imgspice.com" and "turbofile". The download folder is in "~/Pictures/.metart/". 
+# Kitty-Kats Scraper
+I got tired of the download speed limits on Keep2Share when trying to pirate MetArt albums from the Kitty-Kats website. This Python script scrapes HD images one by one from redirected hosting sites like "imagetwist.com", "imgspice.com", and "turbofile". The images are saved in the ~/Pictures/.metart/ folder.
 
 ![screenshot](resources/screenshot.png)
 
-updated >> You don't need to paste anymore. The script will automatically get url from your clipboard. The downloading time depends on the connection speed. If an image is less than 5mb, the whole album would take less than 20 minutes. I can't make parallel download since I haven't learnt about multi-threading. But when you open multiple terminal sessions and download multiple albums at the same time, They all finish in less than 30 mins. So, multi-threading is not necessary yet.
+Update: You no longer need to paste URLs manually—the script automatically grabs them from your clipboard. The download time depends on your connection speed, but if the images are less than 5MB each, a whole album should take less than 20 minutes to download. I haven't implemented parallel downloading yet since I haven't learned about multi-threading. However, if you open multiple terminal sessions and download multiple albums simultaneously, they all finish in less than 30 minutes, so multi-threading isn't necessary for now.
 
-#### Mika B (One of the lost gorgeous from MetArt)
-![Mika B album profile](resources/MetArt_Presenting-Mika_Mika-B_high_0001.jpg)
-She is the reason I started this project since I can't satisfy with preview images from pornpics. It is sad that she only did one project in her life. Maybe she was doing good and didn't need to invest in side-hustle anymore. Or maybe she got married and lived a happy life. I wish she is doing well. 
+#### Mika B (One of the Most Gorgeous Models from MetArt)
+![Mika B](resources/MetArt_Presenting-Mika_Mika-B_high_0001.jpg)
+Mika B is the reason I started this project—I couldn't be satisfied with just the preview images from Pornpics. It’s unfortunate that she only did one project in her career. Maybe she was successful enough not to need a side hustle, or perhaps she got married and is living a happy life. I hope she's doing well.
