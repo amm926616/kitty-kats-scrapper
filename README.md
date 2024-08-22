@@ -1,4 +1,6 @@
 # Kitty-Kats Scraper
+<img src="./icon.png" alt="logo" width="200"/>
+
 I got tired of the download speed limits on Keep2Share when trying to pirate MetArt albums from the Kitty-Kats website. This Python script scrapes HD images one by one from redirected hosting sites like "imagetwist.com", "imgspice.com", and "turbofile". Doesn't work for other than those yet. The images are saved in the ~/Pictures/.metart/ folder.
 
 ![screenshot](resources/screenshot.png)
